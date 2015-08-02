@@ -1,0 +1,18 @@
+= FOR UBUNTU INSTANCES
+1. "source openrc admin admin”
+2. create key pair, (nova keypair-add :name > :file path)
+3. create instance with respective flavor, key pair and correct boot image (for boot image refer to note A.)
+4. create volume matching flavor (devstack default volume backing size is 5GB) - volume backing size? does it HAVE to match? - (cinder create 5)
+5. attach volume to instance on horizon ui
+
+--- 
+== Note
+A. can’t use setup ISO as a boot image for instances because, whenever the instance restarts, it will go through the OS setup steps. Hence, we need to use image builder to build the basic image with components that are independent of hardware (http://docs.openstack.org/image-guide/content/ch_obtaining_images.html - get .img that is linked directly (http://uec-images.ubuntu.com/trusty/current/trusty-server-cloudimg-amd64-disk1.img), http://cloud-images.ubuntu.com/releases/14.04/release/ - get cloud image at the top. ignore overwhelming amazon ec2 published list) - after OS setup, cant you just load from the volume next time instead of using boot image again?
+
+
+
+links for references for above in order
+https://ask.openstack.org/en/question/54745/quickstart-step-3-create-or-import-a-key-pair/
+https://ask.openstack.org/en/question/27663/default-usernamepassword-for-ubuntu-cloud-image/
+http://stackoverflow.com/questions/15835215/cannot-create-volume-of-more-than-2-gbs-in-openstack
+http://docs.openstack.org/image-guide/content/ch_obtaining_images.html#ubuntu-images
